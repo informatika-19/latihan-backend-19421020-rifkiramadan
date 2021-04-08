@@ -1,37 +1,55 @@
-const bodyParser = require('body-parser')
-const express = require('express')
+const express = require ('express')
 const app = express()
-constbodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost:27017/latihan',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(() =>{
+  console.log('berhasil connect ke database')
+}).catch((e) =>{
+  console.log(e)
+  console.log('gagal connect ke database')
+})
+
+
 
 app.use(bodyParser.json({
-extend: true,
-limit: '20mb'
+    extended: true,
+    limit:'20mb'
 }))
 
 app.use(bodyParser.urlencoded({
-    extend: true,
-    limit: '20mb'
-    }))
- 
+    extended: true,
+    limit:'20mb'
+}))
+
 app.get('/', (req, res) => {
-  res.send('Mr.Broadcast')
+    res.send('<h1>RIFKI RAMADAN</h1>')
 })
+
 app.get('/profile/:username/:id', (req, res) => {
     console.log(req.params)
-    res.send('Username Anda ' +req.params.username)
-}) 
-app.get('/daerah/:kota/:id', (req, res) => {
-    const kota = req.params.kota
-    const idkota = req.params.id
-    res.send('daerah Anda ' + kota + ' Id Kota = ' + idkota )
-
-}) 
-
-app.post('/register', (req, res) => {
-console.log(req,body)
-req.json(req.body)
+    res.send('Username Anda ' + req.params.username)
 })
 
-app.listen(3000, () => {
-    console.log('Server Started')
+app.get('/daerah/:namadaerah/:id', (req, res) => {
+    const namadaerah = req.params.namadaerah
+    const idDaerah = req.params.idDaerah
+    res.send('Daerah Aanda ' + req.params.namadaerah)
+})
+//req body
+//app.post('/register', (req, res) => {
+    //res.json(req.body)
+    //console.log(req.body)
+//})
+//const userRoutes = require('./routes/User'))
+//app,use('/user/', userRoutes
+app.use('/user/', require ('./routes/User'))
+
+app.listen(3000, () =>{
+    console.log('Server Mulai')
 })
