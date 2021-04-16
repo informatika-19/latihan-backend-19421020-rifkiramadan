@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/', (req, res) => {
-    res.send('<h1>RIFKI RAMADAN</h1>')
+    res.send('<h1>Mr Broadcast</h1>')
 })
 
 app.get('/profile/:username/:id', (req, res) => {
@@ -49,6 +49,7 @@ app.get('/daerah/:namadaerah/:id', (req, res) => {
 //const userRoutes = require('./routes/User'))
 //app,use('/user/', userRoutes
 app.use('/user/', require ('./routes/User'))
+app.use('/kegiatan/', require('./routes/Kegiatan'))
 
 app.listen(3000, () =>{
     console.log('Server Mulai')
